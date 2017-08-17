@@ -12,3 +12,14 @@
 //-On fail, notify player and restart at 1 with new sequence
 
 //Win at 20 presses
+var Simon = {}
+Simon.SOUNDS = Object.freeze({
+  green: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"),
+  red: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"),
+  yellow: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"),
+  blue: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3")
+})
+
+Simon.playSound = function(sound) {
+  this.SOUNDS[sound].play();
+}
