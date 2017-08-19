@@ -7,6 +7,10 @@ body {
   width: 100px;
 }
 
+#restart {
+  display: none;
+}
+
 #green {
   background: green;
 }
