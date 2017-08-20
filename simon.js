@@ -1,27 +1,22 @@
-//TODO - random series of button presses
-//Each time user enters all correctly, add another to the series
+COLORS = ["green", "red", "yellow", "blue"];
 
-//Hear sound (based on color) on correct press
-//Notified of incorrect press & restart thee sequence again
-
-//Display current number of steps
-
-//Restart button
-
-//Strict mode:
-//-On fail, notify player and restart at 1 with new sequence
-
-//Win at 20 presses
-
-//TODO - add failed sound
 SOUNDS = Object.freeze({
   green: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound1.mp3"),
   red: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound2.mp3"),
   yellow: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound3.mp3"),
-  blue: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3")
+  blue: new Audio("https://s3.amazonaws.com/freecodecamp/simonSound4.mp3"),
+  failed: getFailedSound()
 })
 
-COLORS = ["green", "red", "yellow", "blue"];
+function getFailedSound() {
+  var audio = new Audio("https://www.soundjay.com/button/button-10.mp3")
+  audio.volume = 0.05;
+  return audio;
+}
+
+function playSound(sound) {
+  this.SOUNDS[sound].play();
+}
 
 var Simon = initSimon();
 
@@ -30,7 +25,7 @@ function initSimon() {
   s.round = 0;
   s.sequence = [];
   s.playerCorrect = 0;
-  s.pause = false;
+  s.pause = true;
   s.strict = false;
   return s;
 }
@@ -45,6 +40,7 @@ function addRound() {
   Simon.round += 1;
   Simon.sequence.push(COLORS[index]);
   Simon.playerCorrect = 0;
+  $("#round").text(Simon.round);
 }
 
 function startPlayingSequence() {
@@ -75,29 +71,61 @@ function blinkSpace(color, func) {
   });
 }
 
-function playSound(sound) {
-  this.SOUNDS[sound].play();
+function makeWinningBlinks(max, num) {
+  var color = COLORS[Math.floor(Math.random() * 4)];
+  if (num == undefined) {num = 1;}
+
+  if (num == max) {
+    return function() {
+      playSound(color);
+      blinkSpace(color);
+    }
+  } else {
+    return function() {
+      playSound(color);
+      blinkSpace(color, makeWinningBlinks(max, num+1));
+    }
+  }
+}
+
+function winGame() {
+  var blinks = 20;
+  var flashSpaces = makeWinningBlinks(blinks);
+  flashSpaces();
+
+  $("#round").text("WIN!");
+  setTimeout(resetGame, blinks*650);
+  setTimeout(startPlayingSequence, (blinks+1)*650);
 }
 
 function onPressedColor(color) {
   if (Simon.sequence[Simon.playerCorrect] == color) {
     //Success
-    console.log("Successful color choice");
     playSound(color);
     blinkSpace(color);
     Simon.playerCorrect += 1;
+
     if (Simon.playerCorrect == Simon.sequence.length) {
-      console.log("End of round");
-      addRound();
-      setTimeout(startPlayingSequence, 2000);
+      Simon.pause = true;
+      if (Simon.playerCorrect == 20) {
+        //Winner!
+        winGame();
+      } else {
+        addRound();
+        setTimeout(startPlayingSequence, 2000);
+      }
     }
   } else {
     //Failed
-    //TODO - this is currently strict restart, needs reworked
-    console.log("Failed color choice");
-    // playSound("failed");
+    playSound("failed");
     blinkSpace(color);
-    resetGame();
-    setTimeout(startPlayingSequence, 1000);
+
+    if (Simon.strict) {
+      resetGame();
+      setTimeout(startPlayingSequence, 1000);
+    } else {
+      Simon.playerCorrect = 0;
+      setTimeout(startPlayingSequence, 1000);
+    }
   }
 }

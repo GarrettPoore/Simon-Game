@@ -23,7 +23,6 @@ $(document).ready(function() {
   });
 
   $("#strict").click(function(){
-    //TODO
-    console.log("Strict mode toggled");
+    Simon.strict = this.checked;
   });
 });
