@@ -22,7 +22,8 @@ $(document).ready(function() {
     console.log("Restart clicked");
   });
 
-  $("#strict").click(function(){
+  $("#strict").click(function(event){
+    console.log(this.checked);
     Simon.strict = this.checked;
   });
 });

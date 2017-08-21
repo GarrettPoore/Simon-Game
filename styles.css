@@ -1,30 +1,166 @@
+:root {
+  --game_size: 600px;
+  --game_fill_size: calc(var(--game_size) - 60%);
+  --color_margin: calc(var(--game_size) - 95%);
+  --color_size: calc(var(--game_size) / 2 - var(--color_margin));
+  --button_top: calc(var(--game_size) - 65%);
+  --strict_label_top: calc(var(--game_size) - 58%);
+  --strict_switch_top: calc(var(--game_size) - 55%);
+  --strict_slider_left: calc(calc(var(--game_size) - 90%) - 80%);
+  --round_top_margin: calc(var(--button_top_margin) / 2);
+  --round_left_margin: calc(var(--game_size) - 23%);
+}
+
 body {
+  background: gray;
   text-align: center;
 }
 
-.color_button {
-  height: 100px;
-  width: 100px;
+#game {
+  background: brown;
+  border-radius: 100%;
+  height: var(--game_size);
+  /*display: inline-block;*/
+  margin: auto;
+  margin-top: 2.5%;
+  overflow: hidden;
+  position: relative;
+  width: var(--game_size);
 }
 
-#restart {
-  display: none;
+.color_button {
+  height: var(--color_size);
+  width: var(--color_size);
 }
 
 #green {
   background: green;
+  border-top-left-radius: 100%;
+  float: left;
+  margin-top: var(--color_margin);
+  margin-left: var(--color_margin);
+  position: relative;
 }
 
 #red {
   background: red;
+  border-top-right-radius: 100%;
+  float: right;
+  margin-top: var(--color_margin);
+  margin-right: var(--color_margin);
+  position: relative;
 }
 
 #yellow {
   background: yellow;
+  border-bottom-left-radius: 100%;
+  float: left;
+  margin-bottom: var(--color_margin);
+  margin-left: var(--color_margin);
+  position: relative;
 }
 
 #blue {
   background: blue;
+  border-bottom-right-radius: 100%;
+  float: right;
+  margin-bottom: var(--color_margin);
+  margin-right: var(--color_margin);
+  position: relative;
+}
+
+#game_fill {
+  background: brown;
+  border-radius: 100%;
+  height: var(--game_fill_size);
+  margin: auto;
+  margin-top: 30%;
+  width: var(--game_fill_size);
+  position: relative;
+  z-index: 5;
+}
+
+#start {
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: var(--button_top);
+  width: 15%;
+  z-index: 6;
+}
+
+#restart {
+  display: none;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: var(--button_top);
+  width: 15%;
+  z-index: 6;
+}
+
+#strict_label {
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  margin: auto;
+  position: absolute;
+  top: var(--strict_label_top);
+  z-index: 7;
+}
+
+#round {
+  font-size: 48pt;
+  margin-top: var(--round_top_margin);
+  /*margin-left: 285px; var(--round_left_margin)*/
+  /*float: right;*/
+  position: absolute;
+  z-index: 8;
+}
+
+#strict_button {
+  background: magenta;
+  border-radius: 25%;
+  left: 0;
+  height: 5%;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  margin: auto;
+  position: absolute;
+  top: var(--strict_switch_top);
+  width: 10%;
+  z-index: 9;
+}
+
+#strict_button label {
+  background: gray;
+  border-radius: 25%;
+  display: block;
+  font-size: 16pt;
+  height: 90%;
+  margin: auto;
+  margin-top: 2.5%;
+  width: 90%;
+}
+
+#strict_button input[type=checkbox]:checked + label {
+  background: cyan;
+}
+
+/*#strict_text {
+  background: black;
+}*/
+
+#strict_text + input:checked {
+  background: cyan;
+}
+
+input[type=checkbox] {
+  display: none;
 }
 
 /*
@@ -32,11 +168,27 @@ CSS Switch from
 https://www.w3schools.com/howto/howto_css_switch.asp
 */
 
+/*TODO - just rip out the whole switch thing and just make a checkbox that changes colors*/
+
 .switch {
-  position: relative;
+  /*background: black;*/
+  /*display: inline-block;*/
+  left: 0;
+  height: 5%;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  margin: auto;
+  position: absolute;
+  top: var(--strict_switch_top);
+  width: 10%;
+  z-index: 9;
+
+  /*position: absolute;
   display: inline-block;
   width: 60px;
   height: 34px;
+  z-index: 9;*/
 }
 
 /* Hide default HTML checkbox */
@@ -55,19 +207,21 @@ https://www.w3schools.com/howto/howto_css_switch.asp
   transition: .4s;
   border-radius: 34px;
 }
-
+/*
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
+  /*height: 26px;
   width: 26px;
-  left: 4px;
-  bottom: 4px;
+  height: 80%;
+  width: 40%;
+  left: var(--strict_slider_left);/*14%
+  bottom: 10%;
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
   border-radius: 50%;
-}
+}*/
 
 input:checked + .slider {
   background-color: #2196F3;
