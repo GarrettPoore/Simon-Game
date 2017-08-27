@@ -1,26 +1,26 @@
 :root {
+}
+
+body {
   --game_size: 600px;
   --game_fill_size: calc(var(--game_size) - 60%);
   --color_margin: calc(var(--game_size) - 95%);
   --color_size: calc(var(--game_size) / 2 - var(--color_margin));
-  --button_top: calc(var(--game_size) - 65%);
-  --strict_label_top: calc(var(--game_size) - 58%);
-  --strict_switch_top: calc(var(--game_size) - 55%);
-  --strict_slider_left: calc(calc(var(--game_size) - 90%) - 80%);
-  --round_top_margin: calc(var(--button_top_margin) / 2);
-  --round_left_margin: calc(var(--game_size) - 23%);
-}
 
-body {
-  background: gray;
+  -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+  -moz-user-select: none; /* mozilla browsers */
+  -khtml-user-select: none; /* webkit (konqueror) browsers */
+  -ms-user-select: none; /* IE10+ */
+  
+  background: #191507;
   text-align: center;
 }
 
 #game {
-  background: brown;
+  background: #a8a8a8;
   border-radius: 100%;
+  box-shadow: inset 5px 5px 10px #777777, 3px 3px 8px #cecece, 1px 1px 3px #dbdbdb;
   height: var(--game_size);
-  /*display: inline-block;*/
   margin: auto;
   margin-top: 2.5%;
   overflow: hidden;
@@ -29,6 +29,8 @@ body {
 }
 
 .color_button {
+  box-shadow: inset 2px 2px 2px black, 2px 2px 2px black;
+  cursor: pointer;
   height: var(--color_size);
   width: var(--color_size);
 }
@@ -70,8 +72,9 @@ body {
 }
 
 #game_fill {
-  background: brown;
+  background: #a8a8a8;
   border-radius: 100%;
+  box-shadow: inset 5px 5px 10px #777777, 3px 3px 8px #cecece, 1px 1px 3px #dbdbdb;
   height: var(--game_fill_size);
   margin: auto;
   margin-top: 30%;
@@ -80,65 +83,56 @@ body {
   z-index: 5;
 }
 
-#start {
+button {
+  padding: 1px;
+  top: 25%;
+  width: 15%;
+}
+
+.center-absolute {
   left: 0;
   margin: auto;
   position: absolute;
   right: 0;
-  top: var(--button_top);
-  width: 15%;
-  z-index: 6;
+}
+
+#start {
+  min-width: 3em;
 }
 
 #restart {
   display: none;
-  left: 0;
-  margin: auto;
-  position: absolute;
-  right: 0;
-  top: var(--button_top);
-  width: 15%;
-  z-index: 6;
-}
-
-#strict_label {
-  left: 0;
-  margin: auto;
-  position: absolute;
-  right: 0;
-  margin: auto;
-  position: absolute;
-  top: var(--strict_label_top);
-  z-index: 7;
+  min-width: 4em;
 }
 
 #round {
+  cursor: default;
   font-size: 48pt;
-  margin-top: var(--round_top_margin);
-  /*margin-left: 285px; var(--round_left_margin)*/
-  /*float: right;*/
   position: absolute;
-  z-index: 8;
+  top: 40%;
 }
 
 #strict_button {
-  background: magenta;
+  background: #444444;
   border-radius: 25%;
+  cursor: pointer;
   left: 0;
-  height: 5%;
   margin: auto;
+  min-width: 4em;
   position: absolute;
   right: 0;
-  margin: auto;
-  position: absolute;
-  top: var(--strict_switch_top);
-  width: 10%;
-  z-index: 9;
+  top: 75%;
+  width: 30%;
+}
+
+#strict_button:hover {
+  background: #262626;
 }
 
 #strict_button label {
   background: gray;
   border-radius: 25%;
+  cursor: pointer;
   display: block;
   font-size: 16pt;
   height: 90%;
@@ -148,12 +142,8 @@ body {
 }
 
 #strict_button input[type=checkbox]:checked + label {
-  background: cyan;
+  background: #ba3a28;
 }
-
-/*#strict_text {
-  background: black;
-}*/
 
 #strict_text + input:checked {
   background: cyan;
@@ -161,78 +151,4 @@ body {
 
 input[type=checkbox] {
   display: none;
-}
-
-/*
-CSS Switch from
-https://www.w3schools.com/howto/howto_css_switch.asp
-*/
-
-/*TODO - just rip out the whole switch thing and just make a checkbox that changes colors*/
-
-.switch {
-  /*background: black;*/
-  /*display: inline-block;*/
-  left: 0;
-  height: 5%;
-  margin: auto;
-  position: absolute;
-  right: 0;
-  margin: auto;
-  position: absolute;
-  top: var(--strict_switch_top);
-  width: 10%;
-  z-index: 9;
-
-  /*position: absolute;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-  z-index: 9;*/
-}
-
-/* Hide default HTML checkbox */
-.switch input {display:none;}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-  border-radius: 34px;
-}
-/*
-.slider:before {
-  position: absolute;
-  content: "";
-  /*height: 26px;
-  width: 26px;
-  height: 80%;
-  width: 40%;
-  left: var(--strict_slider_left);/*14%
-  bottom: 10%;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-  border-radius: 50%;
-}*/
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
 }
