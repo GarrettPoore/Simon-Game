@@ -11,7 +11,7 @@ body {
   -moz-user-select: none; /* mozilla browsers */
   -khtml-user-select: none; /* webkit (konqueror) browsers */
   -ms-user-select: none; /* IE10+ */
-  
+
   background: #191507;
   text-align: center;
 }
@@ -22,7 +22,8 @@ body {
   box-shadow: inset 5px 5px 10px #777777, 3px 3px 8px #cecece, 1px 1px 3px #dbdbdb;
   height: var(--game_size);
   margin: auto;
-  margin-top: 2.5%;
+  margin-top: 1%;
+  margin-bottom: 1%;
   overflow: hidden;
   position: relative;
   width: var(--game_size);
@@ -84,6 +85,8 @@ body {
 }
 
 button {
+  border-color: #444444;
+  outline: none;
   padding: 1px;
   top: 25%;
   width: 15%;
@@ -97,10 +100,12 @@ button {
 }
 
 #start {
+  background: #4ef442;
   min-width: 3em;
 }
 
 #restart {
+  background: #f46e41;
   display: none;
   min-width: 4em;
 }
@@ -109,7 +114,7 @@ button {
   cursor: default;
   font-size: 48pt;
   position: absolute;
-  top: 40%;
+  top: 35%;
 }
 
 #strict_button {

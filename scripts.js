@@ -4,7 +4,6 @@ $(document).ready(function() {
   $(".color_button").click(function(event){
     if (!Simon.pause) {
       var color = event.target.id;
-      console.log(color + " pressed");
       onPressedColor(color);
     }
   });
@@ -13,7 +12,6 @@ $(document).ready(function() {
     addRound();
     startPlayingSequence();
 
-    //TODO - transition
     $("#start").hide();
     $("#restart").show();
   });
@@ -21,11 +19,9 @@ $(document).ready(function() {
   $("#restart").click(function(){
     resetGame();
     startPlayingSequence();
-    console.log("Restart clicked");
   });
 
   $("#strict").click(function(event){
-    console.log(this.checked);
     Simon.strict = this.checked;
   });
 
@@ -35,15 +31,8 @@ $(document).ready(function() {
 });
 
 function resizeGame() {
-  var width = window.innerWidth;
-  console.log(width);
-  if (width < 625) {
-    var newWidth = Math.max(450, width - 25)
-    $("body").get(0).style.setProperty("--game_size", newWidth + "px");
-  } else {
-    var size = window.getComputedStyle(document.body).getPropertyValue("--game_size");
-    if (size != 600) {
-      $("body").get(0).style.setProperty("--game_size", "600px");
-    }
-  }
+  var largestSq = Math.min(window.innerWidth, window.innerHeight);
+  var suggestedSize = largestSq - 35;
+  var newSize = Math.max(400, suggestedSize);
+  $("body").get(0).style.setProperty("--game_size", newSize + "px");
 }

@@ -71,6 +71,10 @@ function blinkSpace(color, func) {
   });
 }
 
+/*
+* Creates & returns a function that will randomly blink a color and play the
+* respective sound X number of times
+*/
 function makeWinningBlinks(max, num) {
   var color = COLORS[Math.floor(Math.random() * 4)];
   if (num == undefined) {num = 1;}
@@ -105,6 +109,7 @@ function onPressedColor(color) {
     blinkSpace(color);
     Simon.playerCorrect += 1;
 
+    //The last color was pressed
     if (Simon.playerCorrect == Simon.sequence.length) {
       Simon.pause = true;
       if (Simon.playerCorrect == 20) {
